@@ -36,7 +36,7 @@ class FaceSightEngine(object):
             
         
     def faceDetector(self):
-        # 加载人脸检测器模型
+        # 加载检测器模型
         self._face_detector = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
         self._is_face_detector = True
         
@@ -63,8 +63,8 @@ class FaceSightEngine(object):
         if self._face_detector and self._is_face_detector:
             gray = cv2.cvtColor(self._frame, code = cv2.COLOR_BGR2GRAY)  # 转化为灰度图进行检测，减少计算量
             faces = self._face_detector.detectMultiScale(gray)  # 获得人脸检测结果
-            for x, y, w, h in faces:  # 进行for循环，将检测到的所有人脸区域绘制标注
-                cv2.circle(self._frame, (x + w // 2, y + h // 2), w // 2, [255, 0, 0], 2) # 用圆圈圈出识别人脸        
+            for x, y, w, h in faces:  # 进行for循环，将检测到的所有区域绘制标注
+                cv2.circle(self._frame, (x + w // 2, y + h // 2), w // 2, [255, 0, 0], 2) # 用圆圈圈出识别        
     
     def frame2Image(self):
     
@@ -93,7 +93,7 @@ class SightFrame(QWidget):
         
     def initUI(self):
         
-        self.setWindowTitle("人脸识别")
+        self.setWindowTitle("图像识别")
         self.resize(860, 520)
         
         group1 = QGroupBox("摄像头/视频", self)
@@ -109,7 +109,7 @@ class SightFrame(QWidget):
         self.btn_stream_type1.setChecked(True)
         self.btn_open.setFixedSize(110, 40)
         
-        self.btn_check_face = QCheckBox("人脸识别", self)
+        self.btn_check_face = QCheckBox("图像识别", self)
         
         self.btn_capture = QPushButton("截获图", self)
         self.btn_save = QPushButton("保存图", self)
